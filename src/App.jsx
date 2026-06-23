@@ -151,18 +151,24 @@ export default function App() {
     fetchProducts(null, [], selectedCategory);
   }, [selectedCategory]);
 
+  function scrollTop() {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
+
   function handleNext() {
     if (!nextCursor) return;
     const newStack = currentCursor ? [...cursorStack, currentCursor] : cursorStack;
     fetchProducts(nextCursor, newStack, undefined);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollTop();
   }
 
   function handlePrev() {
     if (cursorStack.length === 0) return;
     const prevCursor = cursorStack[cursorStack.length - 1];
     fetchProducts(prevCursor || null, cursorStack.slice(0, -1), undefined);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollTop();
   }
 
   return (
